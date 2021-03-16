@@ -1,0 +1,360 @@
+<ListaPreferiti>:
+    _python_access: lista
+    size_hint_y: None
+    height: lista.height
+    swipe_distance: 1000
+    MDCardSwipeLayerBox:
+        padding: "8dp"
+        MDIconButton:
+            id: cestino
+            icon: "trash-can"
+            on_release:
+                app.remove_item(root)
+
+    MDCardSwipeFrontBox:
+
+        OneLineListItem:
+            id: lista
+            _no_ripple_effect: True
+            text: root.text
+
+<Epsfounded>:
+    _python_access: listone
+    size_hint_y: None
+    height: listone.height
+    id: listone
+    padding_y: 10
+    padding_x: 10
+    color: root.color
+    bold: True
+    text_size: self.width, None
+    size_hint: 1, None
+    height: self.texture_size[1]
+    #MDCardSwipeLayerBox:
+        #padding: "8dp"
+        #MDIconButton:
+            #id: stellina
+            #icon: "star"
+            #on_release:
+                ##app.fileadd(root)
+
+    #MDCardSwipeFrontBox:
+
+        #OneLineListItem:
+            #id: liste
+            #_no_ripple_effect: True
+            #text: root.text
+
+NavigationLayout:
+
+    ScreenManager:
+        Screen:
+
+            BoxLayout:
+                orientation: 'vertical'
+
+                MDToolbar:
+                    title: "Detective Conan"
+                    elevation: 10
+                    left_action_items: [['menu', lambda x: nav_drawer.set_state()]]
+
+                MDBottomNavigation:
+                    panel_color: .2, .2, .2, 1
+
+                    MDBottomNavigationItem:
+                        name: 'scelta_1'
+                        id: prima
+                        text: 'Random'
+                        icon: 'chart-histogram'
+                        GridLayout:
+                            adaptive_height: True
+                            rows: 4
+                            spacing: 15
+                            canvas.before:
+                                Color:
+                                    rgba: 0, 0, 0, .7
+                                Rectangle:
+                                    size: self.size
+                                    pos: self.pos
+                            AnchorLayout:
+                                size_hint_y: None
+                                height: 170
+                                orientation: "vertical"
+                                anchor_x: 'center'
+                                anchor_y: 'top'
+                                pad_x: 7
+                                pad_y: 5
+                                canvas.before:
+                                    Color:
+                                        rgba: 0, 0, 0, .7
+                                MDTextField:
+                                    id: epsnumero
+                                    multiline: False
+                                    hint_text: "Cerca qui episodi in base al numero"
+                                    helper_text: "Aggiungi ai preferiti l'episodio se vuoi"
+                                    helper_text_mode: "on_focus"
+                                    mode: "rectangle"
+                                    size_hint_y: None
+                                    size_hint_x: None
+                                    width: 880
+                                    icon_right: "border-color"
+                            BoxLayout:
+                                ScrollView:
+                                    MDLabel:
+                                        id: scelta1
+                                        padding_x: 10
+                                        padding_y: 15
+                                        color: (1, 1, 1, 1)
+                                        font_size: 50
+                                        text: "Premi il bottone per generare un episodio random"
+                                        bold: True
+                                        size_hint_y: None
+                                        height: self.texture_size[1]
+                                        text_size: self.width, None
+                            MDIconButton:
+                                id: onoff
+                                icon: "blank"
+                                md_bg_color: app.theme_cls.primary_color
+                                pos_hint: {"center_x": .5, "center_y": .5}
+                                on_release:
+                                    app.fileadd()
+                            BoxLayout:
+                                orientation: "vertical"
+                                size_hint_y: None
+                                height: 100
+                                GridLayout:
+                                    adaptive_height: True
+                                    cols: 2
+                                    spacing: 7
+                                    MDRaisedButton:
+                                        id: randbu
+                                        text: "Episodio Random"
+                                        background_normal: ""
+                                        background_color: (0, 0.5, 0, 0.5)
+                                        background_down: ""
+                                        size_hint_y: None
+                                        size_hint_x: 1
+                                        width: 130
+                                        height: 100
+                                        on_press:
+                                            self.background_color = (1, 0, 0, 1)
+                                        on_release:
+                                            self.background_color = (0.5, 0.5, 0, 0.5)
+                                            app.randomize()
+                                    MDRaisedButton:
+                                        id: cercanumero
+                                        text: "Cerca"
+                                        background_normal: ""
+                                        background_color: (0, 0.5, 0, 0.5)
+                                        background_down: ""
+                                        size_hint_y: None
+                                        size_hint_x: 1
+                                        width: 130
+                                        height: 100
+                                        on_press:
+                                            self.background_color = (1, 0, 0, 1)
+                                        on_release:
+                                            self.background_color = (0.5, 0.5, 0, 0.5)
+                                            app.cercanumber()
+
+                    MDBottomNavigationItem:
+                        name: 'scelta_2'
+                        id: seconda
+                        text: 'Ricerca'
+                        icon: 'book-search-outline'
+
+                        GridLayout:
+                            rows: 3
+                            spacing: 10
+                            adaptive_height: True
+                            canvas.before:
+                                Color:
+                                    rgba: 0, 0, 0, .7
+                                Rectangle:
+                                    size: self.size
+                                    pos: self.pos
+                            AnchorLayout:
+                                size_hint_y: None
+                                height: 170
+                                orientation: "vertical"
+                                anchor_x: 'center'
+                                anchor_y: 'top'
+                                pad_x: 15
+                                pad_y: 5
+                                canvas.before:
+                                    Color:
+                                        rgba: 0, 0, 0, .7
+                                MDTextField:
+                                    id: keyword
+                                    multiline: False
+                                    hint_text: "Digita la parola da cercare"
+                                    helper_text: 'Parole chiave: "nero", "tutti", "tempo", "consigli"'
+                                    helper_text_mode: "on_focus"
+                                    mode: "rectangle"
+                                    size_hint_y: None
+                                    size_hint_x: None
+                                    width: 710
+                                    icon_right: "border-color"
+                            ScrollView:
+                                #bar_width: 10
+                                #bar_color: 0, 0, 0, .2
+                                #bar_inactive_color: 0, 0, 0, .5
+                                #effect_cls: "ScrollEffect"
+                                #scroll_type: ['bars']
+                                #size: (Window.width, Window.height)
+                                scroll_timeout : 130
+                                GridLayout:
+                                    orientation: "vertical"
+                                    size_hint_y: None
+                                    height: self.minimum_height
+                                    #row_default_height: 60
+                                    cols:1
+                                    MDList:
+                                        id: epsfound
+                                        padding: 0
+                            #ScrollView:
+                                #MDLabel:
+                                    #padding_x: 15
+                                    #id: scelta2
+                                    #color: (1, 1, 1, 1)
+                                    #text: ""
+                                    #bold: True
+                                    #text_size: self.width, None
+                                    #size_hint: 1, None
+                                    #height: self.texture_size[1]
+                            #GridLayout:
+                                #rows: 1
+                                #size_hint_y: None
+                                #height: 90
+                                #orientation: "vertical"
+                                #anchor_x: 'center'
+                                #anchor_y: 'bottom'
+                                #pad_x: 3
+                                #pad_y: 3
+                                #MDSlider:
+                                    #id: slider
+                                    #min: 5
+                                    #max: 55
+                                    #value: 25
+                                    #on_touch_down:
+                                       # app.increasefont()
+                                    #on_touch_up:
+                                        #app.decreasefont()
+                            GridLayout:
+                                cols: 3
+                                size_hint_y: None
+                                size_hint_x: 1
+                                height: 150
+                                adaptive_height: True
+                                adaptive_width: True
+                                spacing: 5
+                                #orientation: "horizontal"
+                                #anchor_x: 'center'
+                                #anchor_y: 'bottom'
+                                #pad_x: 3
+                                pad_y: 5
+                                canvas.before:
+                                    Rectangle:
+                                        size: self.size
+                                        pos: self.pos
+
+                                MDIconButton:
+                                    id: sex
+                                    icon: "menu-left"
+                                    size_hint_y: None
+                                    size_hint_x: 0.3
+                                    theme_text_color: "ContrastParentBackground"
+                                    #text_color: 0.2, 0.6, 1, 0.3
+                                    #md_bg_color: app.theme_cls.primary_color
+                                    #pos_hint: {"center_x": .5, "center_y": .5}
+                                    on_release:
+                                        app.arrow_sex()
+
+                                MDRaisedButton:
+                                    id: searchbu
+                                    text: "Cerca"
+                                    background_normal: ""
+                                    background_color: (0, 0.5, 0, 0.5)
+                                    background_down: ""
+                                    size_hint_x: 1
+                                    on_press:
+                                        self.background_color = (1, 0, 0, 1)
+                                    on_release:
+                                        self.background_color = (0.5, 0.5, 0, 0.5)
+                                        app.search()
+
+                                MDIconButton:
+                                    id: dex
+                                    icon: "menu-right"
+                                    size_hint_y: None
+                                    size_hint_x: 0.3
+                                    theme_text_color: "ContrastParentBackground"
+                                    #text_color: 0.2, 0.6, 1, 0.3
+                                    #md_bg_color: app.theme_cls.primary_color
+                                    #pos_hint: {"center_x": 1, "center_y": 0}
+                                    on_release:
+                                        app.arrow_dex()
+
+
+                    MDBottomNavigationItem:
+                        name: 'scelta_3'
+                        id: preferiti
+                        text: 'Preferiti'
+                        icon: 'star'
+                        BoxLayout:
+                            orientation: "vertical"
+                            spacing: "10dp"
+
+                            MDToolbar:
+                                elevation: 10
+                                title: "Episodi preferiti"
+                                MDIconButton:
+                                    icon: "refresh"
+                                    md_bg_color: app.theme_cls.primary_color
+                                    pos_hint: {"center_x": .5, "center_y": .5}
+                                    on_release:
+                                        app.filerefresh()
+                            ScrollView:
+                                scroll_timeout : 130
+                                MDList:
+                                    id: episodistar
+                                    padding: 0
+
+
+    MDNavigationDrawer:
+        id: nav_drawer
+        BoxLayout:
+            orientation: "vertical"
+            padding: "8dp"
+            spacing: "8dp"
+
+            AnchorLayout:
+                anchor_x: "left"
+                size_hint_y: None
+                height: avatar.height
+
+                Image:
+                    id: avatar
+                    size_hint: None, None
+                    size: "56dp", "56dp"
+                    source: "dc2buona.png"
+
+            MDLabel:
+                text: "DC App"
+                font_style: "Button"
+                size_hint_y: None
+                height: self.texture_size[1]
+
+            MDLabel:
+                text: "Created by Gabro"
+                font_style: "Caption"
+                size_hint_y: None
+                height: self.texture_size[1]
+
+            ScrollView:
+                #OneLineAvatarIconListItem:
+                    #text: "Preferiti"
+                    #bold: True
+                    #IconLeftWidget:
+                        #icon: "star"
+
